@@ -12,7 +12,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "JetShopee"
+rootProject.name = "GreenEats"
 include ':app'
 include ':core'
 include ':features:sample'

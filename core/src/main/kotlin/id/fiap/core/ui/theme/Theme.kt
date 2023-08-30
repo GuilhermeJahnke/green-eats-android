@@ -6,19 +6,6 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-private val DarkColorPalette = darkColors(
-    primary = md_theme_dark_primary,
-    onPrimary = md_theme_dark_onPrimary,
-    primaryVariant = md_theme_dark_primaryContainer,
-    secondary = md_theme_dark_secondary,
-    secondaryVariant = md_theme_dark_secondaryContainer,
-    background = md_theme_dark_background,
-    surface = md_theme_dark_surface,
-    error = md_theme_dark_error,
-    onSecondary = md_theme_dark_onSecondary,
-    onError = md_theme_dark_onError,
-)
-
 private val LightColorPalette = lightColors(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
@@ -33,15 +20,9 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun JetShopeeTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
+fun GreenEatsTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colors = colors,
+        colors = LightColorPalette,
         typography = Typography,
         shapes = Shapes,
         content = content

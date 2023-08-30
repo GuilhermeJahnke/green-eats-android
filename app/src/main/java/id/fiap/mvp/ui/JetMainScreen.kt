@@ -7,7 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import id.fiap.sample.ui.navigation.BottomNav
-import id.fiap.core.ui.theme.JetShopeeTheme
+import id.fiap.core.ui.theme.GreenEatsTheme
 
 @Composable
 fun JetMainScreen(
@@ -20,7 +20,7 @@ fun JetMainScreen(
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun DefaultPreview() {
-    JetShopeeTheme {
+    GreenEatsTheme {
         JetMainScreen()
     }
 }
