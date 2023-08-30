@@ -9,11 +9,11 @@ plugins {
 
 @Suppress("UnstableApiUsage")
 android {
-    namespace = "id.rivaldy.mvp"
+    namespace = "id.fiap.mvp"
     compileSdk = Versions.compile_sdk
 
     defaultConfig {
-        applicationId = "id.rivaldy.mvp"
+        applicationId = "id.fiap.mvp"
         minSdk = Versions.min_sdk
         targetSdk = Versions.target_sdk
         versionCode = Versions.version_code
