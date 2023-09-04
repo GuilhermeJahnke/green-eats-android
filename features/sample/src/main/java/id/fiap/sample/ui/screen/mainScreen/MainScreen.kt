@@ -10,7 +10,7 @@ import id.fiap.sample.ui.navigation.BottomNav
 import id.fiap.core.ui.theme.GreenEatsTheme
 
 @Composable
-fun JetMainScreen(
+fun MainScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -21,6 +21,6 @@ fun JetMainScreen(
 @Composable
 fun DefaultPreview() {
     GreenEatsTheme {
-        JetMainScreen()
+        MainScreen()
     }
 }

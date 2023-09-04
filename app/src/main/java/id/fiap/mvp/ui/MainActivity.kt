@@ -3,25 +3,31 @@ package id.fiap.mvp.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.ui.Modifier
+import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import id.fiap.core.ui.theme.GreenEatsTheme
-import id.fiap.core.ui.theme.StatusBarColor
+import id.fiap.sample.ui.screen.splashScreen.SplashScreen
+import id.fiap.sample.ui.screen.splashScreen.SplashScreenViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val viewModel: SplashScreenViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             GreenEatsTheme {
-                StatusBarColor(color = MaterialTheme.colors.primary)
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    JetMainScreen()
+                val backgroundWorkFinished = viewModel.backgroundWorkFinished.value
+
+                if (backgroundWorkFinished) {
+                    MainScreen()
+                } else {
+                    SplashScreen()
                 }
             }
         }
+
+        viewModel.performBackgroundWork()
     }
 }
