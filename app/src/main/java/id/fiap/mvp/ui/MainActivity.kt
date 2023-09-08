@@ -1,5 +1,6 @@
 package id.fiap.mvp.ui
 
+import LoginScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
                 val backgroundWorkFinished = viewModel.backgroundWorkFinished.value
 
                 if (backgroundWorkFinished) {
-                    MainScreen()
+                    LoginScreen()
                 } else {
                     SplashScreen()
                 }
