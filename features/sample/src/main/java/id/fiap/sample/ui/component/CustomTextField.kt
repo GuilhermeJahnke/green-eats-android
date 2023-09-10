@@ -1,12 +1,15 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,7 +22,8 @@ fun CustomTextField(
     label: String,
     isError: Boolean = false,
     modifier: Modifier = Modifier,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardType: KeyboardType = KeyboardType.Text,
 ) {
 
     OutlinedTextField(
@@ -39,7 +43,11 @@ fun CustomTextField(
         visualTransformation = visualTransformation,
         singleLine = true,
         isError = isError,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType,
+            autoCorrect = false,
+        )
     )
 
     if (isError) {

@@ -6,13 +6,17 @@ import androidx.lifecycle.ViewModel
 import isValidEmail
 
 class LoginViewModel() : ViewModel(){
-    private val _emailValid = mutableStateOf(true)
-    val emailValid: State<Boolean> = _emailValid
+    private val _emailValid = mutableStateOf<Boolean?>(null)
+    val emailValid: State<Boolean?> = _emailValid
 
-    private val _passwordValid = mutableStateOf(true)
-    val passwordValid: State<Boolean> = _passwordValid
+    private val _passwordValid = mutableStateOf<Boolean?>(null)
+    val passwordValid: State<Boolean?> = _passwordValid
 
-    fun login(email: String, password: String) {
+    fun onLoginTap(email: String, password: String) {
+
+    }
+
+    fun onRegisterTap(){
 
     }
 

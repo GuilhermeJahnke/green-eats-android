@@ -1,43 +1,67 @@
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import id.fiap.core.ui.theme.md_theme_light_background
-import id.fiap.core.ui.theme.md_theme_light_secondary
+import id.fiap.core.ui.theme.*
+import id.fiap.sample.R
+import id.fiap.sample.ui.component.CustomButton
 import id.fiap.sample.ui.screen.login.LoginViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     val viewModel: LoginViewModel = viewModel()
+    val isButtonEnabled: Boolean = viewModel.emailValid.value == true && viewModel.passwordValid.value == true
+
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+    val interactionSource = remember { MutableInteractionSource() }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+            ){
+                keyboardController?.hide()
+                focusManager.clearFocus(true)
+            }
             .background(md_theme_light_background)
             .padding(16.dp),
+
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Ícone e título
-//        Icon(
-//            painter = painterResource(id = ),
-//            contentDescription = null,
-//            modifier = Modifier.size(120.dp)
-//        )
+        Spacer(modifier = Modifier.height(30.dp))
+       Image(
+            painter = painterResource(R.drawable.icon),
+            contentDescription = "avatar",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(64.dp)
+                .clip(CircleShape)
+        )
         Spacer(modifier = Modifier.height(30.dp))
         Text(
             text = "Login",
@@ -54,9 +78,10 @@ fun LoginScreen() {
                 viewModel.onEmailChanged(it)
             },
             label = "Email",
-            isError = !viewModel.emailValid.value,
+            isError = viewModel.emailValid.value == false,
+            keyboardType = KeyboardType.Email,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
 
         )
 
@@ -69,9 +94,10 @@ fun LoginScreen() {
                 password = it
                 viewModel.onPasswordChanged(it)
             },
-            isError = !viewModel.passwordValid.value,
+            isError = viewModel.passwordValid.value == false,
             visualTransformation =  PasswordVisualTransformation(),
             label = "Senha",
+            keyboardType = KeyboardType.Password,
             modifier = Modifier
                 .fillMaxWidth()
 
@@ -80,38 +106,33 @@ fun LoginScreen() {
         Spacer(modifier = Modifier.height(100.dp))
 
         // Botões
-        Button(
+        CustomButton(
+            text = "Entrar",
             onClick = {
-                viewModel.login(email, password)
+                viewModel.onLoginTap(email, password)
             },
-            enabled = viewModel.emailValid.value && viewModel.passwordValid.value,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(4.dp),
-            shape = RoundedCornerShape(30.dp)
-        ) {
-            Text(text = "Entrar")
-        }
+            isEnabled = isButtonEnabled,
+            isLoading = false,
+            colors = if (isButtonEnabled){
+                 ButtonDefaults.textButtonColors(
+                    backgroundColor = md_theme_light_primary,
+                )
+            } else {
+                ButtonDefaults.textButtonColors(
+                    backgroundColor = md_theme_light_secondary,
+                )
+            }
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
+        CustomButton(
+            text= "Cadastrar",
             onClick = {
-                // Navegar para a tela de cadastro
-                // navController.navigate("tela_de_cadastro")
+                viewModel.onRegisterTap()
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(4.dp),
             shape = RoundedCornerShape(30.dp),
-            colors = ButtonDefaults.textButtonColors(
-                backgroundColor = md_theme_light_secondary,
-            )
-        ) {
-            Text(text = "Cadastrar", color= Color.White )
-        }
+        )
     }
 }
 
