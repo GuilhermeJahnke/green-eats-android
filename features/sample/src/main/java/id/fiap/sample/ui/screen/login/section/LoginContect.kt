@@ -47,6 +47,7 @@ fun LoginContent(
     isEmailError: Boolean,
     isPasswordError: Boolean,
     isButtonEnabled: Boolean,
+    isButtonLoading: Boolean,
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit,
 ){
@@ -115,7 +116,7 @@ fun LoginContent(
             text = "Entrar",
             onClick = onLoginClick,
             isEnabled = isButtonEnabled,
-            isLoading = false,
+            isLoading = isButtonLoading,
             colors = if (isButtonEnabled){
                 ButtonDefaults.textButtonColors(
                     backgroundColor = md_theme_light_primary,

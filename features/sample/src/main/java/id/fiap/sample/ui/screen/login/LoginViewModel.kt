@@ -3,7 +3,12 @@ package id.fiap.sample.ui.screen.login
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import isValidEmail
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginViewModel() : ViewModel(){
     private val _emailValid = mutableStateOf<Boolean?>(null)
@@ -12,8 +17,22 @@ class LoginViewModel() : ViewModel(){
     private val _passwordValid = mutableStateOf<Boolean?>(null)
     val passwordValid: State<Boolean?> = _passwordValid
 
-    fun onLoginTap(email: String, password: String) {
+    private val _isLoading = mutableStateOf(false)
+    val isLoading: State<Boolean> = _isLoading
 
+    fun onLoginTap(email: String, password: String, navController: NavController) {
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            delay(2000)
+
+            // Remove this mock when Integration is finished
+            navController.navigate("Home"){
+                popUpTo(navController.graph.id)
+            }
+
+            _isLoading.value = false
+        }
     }
 
     fun onRegisterTap(){
@@ -27,4 +46,5 @@ class LoginViewModel() : ViewModel(){
     fun onPasswordChanged(password: String){
         _passwordValid.value = password.trim().length >= 6
     }
+
 }

@@ -47,6 +47,7 @@ fun CustomButton(
         if(isLoading){
             CircularProgressIndicator(
                 modifier = loadingModifier,
+                color = md_theme_light_white
             )
         } else {
             Text(
