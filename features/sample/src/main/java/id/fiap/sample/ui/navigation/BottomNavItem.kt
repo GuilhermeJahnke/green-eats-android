@@ -25,6 +25,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import id.fiap.sample.ui.navigation.model.BottomBar
+import id.fiap.sample.ui.navigation.model.BottomBarScreen
+
 @Composable
 fun BottomNavItem(
     screen: BottomBar,
@@ -32,8 +34,8 @@ fun BottomNavItem(
     navController: NavHostController
 ) {
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
-    val background = if (selected) MaterialTheme.colors.onPrimary.copy(alpha = 0.1f) else Color.Transparent
-    val contentColor = if (selected) MaterialTheme.colors.background else MaterialTheme.colors.background.copy(alpha = 0.4f)
+    val background = if (selected) MaterialTheme.colors.primary.copy(alpha = 0.1f) else Color.Transparent
+    val contentColor = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.secondary.copy(alpha = 0.4f)
 
     Box(
         modifier = Modifier

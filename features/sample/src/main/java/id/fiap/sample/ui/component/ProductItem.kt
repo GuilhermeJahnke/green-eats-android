@@ -1,16 +1,11 @@
 package id.fiap.sample.ui.component
 
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,12 +21,13 @@ import coil.request.ImageRequest
 import id.fiap.core.R
 import id.fiap.core.data.model.Product
 import id.fiap.core.ui.theme.Gray200
-import id.fiap.core.util.UtilFunctions.fromDollarToRupiah
+import id.fiap.core.util.UtilFunctions.fromDollarToReal
 
 @Composable
 fun ProductItem(
     modifier: Modifier = Modifier,
-    product: Product = Product()
+    product: Product = Product(),
+    onClick: () -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(8.dp),
@@ -60,7 +56,11 @@ fun ProductItem(
             )
             Divider(color = Gray200, thickness = 1.dp)
             Column(
-                modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = modifier
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 8.dp
+                )
             ) {
                 Text(
                     text = product.title ?: "",
@@ -71,14 +71,46 @@ fun ProductItem(
                     ),
                     color = Color.Black
                 )
-                Text(
-                    text = product.price.fromDollarToRupiah(),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.subtitle2,
-                    color = MaterialTheme.colors.secondary
-                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Row() {
+                    Box(
+                        modifier = Modifier
+                        .weight(1f)
+                    ) {
+                        Column() {
+                            Text(
+                                text = product.price.fromDollarToReal(),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                style = MaterialTheme.typography.subtitle2,
+                                color = MaterialTheme.colors.secondary
+                            )
+                            Text(
+                                text = "1kg",
+                                style = MaterialTheme.typography.subtitle2,
+                                color = MaterialTheme.colors.secondary
+                            )
+                        }
+
+                    }
+                    Box(
+                        modifier = Modifier
+                            .weight(0.4f)
+                    ){
+                        FloatingActionButton(
+                            onClick = onClick,
+                            modifier = Modifier.height(44.dp).fillMaxWidth(),
+                            shape = RoundedCornerShape(30.dp),
+                            contentColor = Color.White,
+                            backgroundColor = MaterialTheme.colors.primary,
+                        ) {
+                            Icon(Icons.Default.Add, contentDescription = null)
+                        }
+                    }
+                }
             }
+
+
         }
     }
 }
@@ -93,6 +125,7 @@ fun ProductItemPreview() {
             price = 100000,
             thumbnail = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
         ),
-        modifier = Modifier
+        modifier = Modifier,
+        onClick = {}
     )
 }

@@ -2,11 +2,8 @@ package id.fiap.sample.ui.screen.home.section
 
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -16,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import id.fiap.sample.ui.component.EmptyProduct
 import id.fiap.sample.ui.component.ProductItem
 import id.fiap.core.data.model.Product
+import id.fiap.core.ui.theme.md_theme_light_background
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -23,9 +21,12 @@ import id.fiap.core.data.model.Product
 fun HomeContent(
     modifier: Modifier,
     listProduct: MutableList<Product>?,
+    onProductClick: (Product) -> Unit
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .background(md_theme_light_background)
     ) {
         if (listProduct != null) {
             LazyVerticalGrid(
@@ -36,8 +37,13 @@ fun HomeContent(
                             product = product,
                             modifier = modifier
                                 .fillMaxWidth()
-                                .animateItemPlacement(tween(durationMillis = 100))
-                            )
+                                .animateItemPlacement(
+                                    tween(durationMillis = 100)
+                                ),
+                            onClick = {
+                                onProductClick(product)
+                            }
+                        )
                     }
                 }, contentPadding = PaddingValues(8.dp)
             )

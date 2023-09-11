@@ -12,15 +12,17 @@ object UtilFunctions {
         if (BuildConfig.DEBUG) Log.e("ERROR_IMO", message)
     }
 
-    fun Long?.fromDollarToRupiah(): String {
-        val localId = localeID
-        val formatter = NumberFormat.getCurrencyInstance(localId)
-        val fakeDollarToday = 15000
-        val intValue = (this ?: 0) * fakeDollarToday
-        return when {
-            intValue > 0 -> formatter.format(intValue).replace(",00", "")
-            intValue < 0 -> formatter.format(intValue).replace(",00", "")
-            else -> "Rp0"
+    fun Long?.fromDollarToReal(): String {
+        val localeBR = Locale("pt", "BR")
+        val formatter = NumberFormat.getCurrencyInstance(localeBR)
+        val currentDollarRate = 5.30
+
+        val realValue = (this ?: 0) * currentDollarRate
+
+        return if (realValue > 0) {
+            formatter.format(realValue)
+        } else {
+            "R$0,00"
         }
     }
 }

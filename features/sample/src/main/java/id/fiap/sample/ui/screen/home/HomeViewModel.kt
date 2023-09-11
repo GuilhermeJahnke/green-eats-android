@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.fiap.core.data.UiState
+import id.fiap.core.data.model.Product
 import id.fiap.core.data.model.ProductResponse
 import id.fiap.core.domain.usecase.product.GetProductsUseCase
 import id.fiap.core.domain.usecase.product.SearchProductUseCase
@@ -29,6 +30,10 @@ class HomeViewModel @Inject constructor(
 
     private val _query = mutableStateOf("")
     val query: State<String> get() = _query
+
+    fun onProductClick(product: Product){
+        println("Voce acabou de clicar em ${product.title}")
+    }
 
     fun getProductsApiCall() { // this is sample not using `suspend`
         getProductsUseCase.execute(Unit).onEach { product ->

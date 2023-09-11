@@ -33,7 +33,7 @@ import coil.request.ImageRequest
 import id.fiap.core.R
 import id.fiap.core.data.model.Product
 import id.fiap.core.ui.theme.Shapes
-import id.fiap.core.util.UtilFunctions.fromDollarToRupiah
+import id.fiap.core.util.UtilFunctions.fromDollarToReal
 
 @Composable
 fun ProductCartItem(
@@ -84,7 +84,7 @@ fun ProductCartItem(
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 Text(
-                    text = product.price.fromDollarToRupiah(),
+                    text = product.price.fromDollarToReal(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.subtitle2,

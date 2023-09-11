@@ -51,7 +51,7 @@ fun SearchBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = Dimens.dp16, end = Dimens.dp16, top = Dimens.dp16, bottom = Dimens.dp16)
+            .padding(top = Dimens.dp16, bottom = Dimens.dp16)
             .clickable { onSearchClicked() }
     ) {
         TextField(
@@ -62,11 +62,10 @@ fun SearchBar(
                 .focusRequester(FocusRequester())
                 .onFocusChanged { isTextFieldFocused = it.isFocused }
                 .fillMaxWidth()
-                .heightIn(min = Dimens.dp48, max = Dimens.dp48)
-                .clip(shape = RoundedCornerShape(Dimens.dp8))
+                .clip(shape = RoundedCornerShape(Dimens.dp48))
                 .border(
                     border = BorderStroke(Dimens.dp1, MaterialTheme.colors.primary.copy(alpha = 0.4f)),
-                    shape = RoundedCornerShape(Dimens.dp8)
+                    shape = RoundedCornerShape(Dimens.dp48)
                 ),
             textStyle = TextStyle(fontSize = Dimens.sp14),
             leadingIcon = {
