@@ -22,14 +22,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
-    private val searchProductUseCase: SearchProductUseCase
 ) : ViewModel() {
 
     private val _uiStateProduct: MutableStateFlow<UiState<ProductResponse>> = MutableStateFlow(UiState.Loading)
     val uiStateProduct: StateFlow<UiState<ProductResponse>> = _uiStateProduct
-
-    private val _query = mutableStateOf("")
-    val query: State<String> get() = _query
 
     fun onProductClick(product: Product){
         println("Voce acabou de clicar em ${product.title}")
@@ -41,22 +37,5 @@ class HomeViewModel @Inject constructor(
         }.catch { e ->
             _uiStateProduct.value = UiState.Error(e.message.toString())
         }.launchIn(viewModelScope)
-    }
-
-    fun searchProductApiCall(query: String) {
-        _query.value = query
-        viewModelScope.launch {
-            try {
-                searchProductUseCase.execute(_query.value)
-                    .catch {
-                        _uiStateProduct.value = UiState.Error(it.message.toString())
-                    }
-                    .collect { product ->
-                        _uiStateProduct.value = UiState.Success(product)
-                    }
-            } catch (e: Exception) {
-                _uiStateProduct.value = UiState.Error(e.message.toString())
-            }
-        }
     }
 }

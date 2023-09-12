@@ -47,7 +47,8 @@ fun CustomTextField(
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
             autoCorrect = false,
-        )
+        ),
+
     )
 
     if (isError) {

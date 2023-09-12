@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import isValidEmail
+import id.fiap.core.util.UtilFunctions.isValidEmail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -35,8 +35,8 @@ class LoginViewModel() : ViewModel(){
         }
     }
 
-    fun onRegisterTap(){
-
+    fun onRegisterTap(navController: NavController){
+        navController.navigate("Register")
     }
 
     fun onEmailChanged(email: String){
