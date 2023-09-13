@@ -30,7 +30,7 @@ fun LoginScreen(
         password = password,
         isEmailError = viewModel.emailValid.value == false,
         isPasswordError = viewModel.passwordValid.value == false,
-        isButtonEnabled = true,
+        isButtonEnabled = isButtonEnabled,
         isButtonLoading = viewModel.isLoading.value,
         onLoginClick = {
             viewModel.onLoginTap(

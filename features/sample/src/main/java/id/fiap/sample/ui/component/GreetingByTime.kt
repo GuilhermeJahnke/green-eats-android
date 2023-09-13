@@ -15,9 +15,9 @@ fun GreetingByTime() {
     val horaAtual = rememberUpdatedState(obterHoraAtual(context))
 
     val saudacao = when (horaAtual.value) {
-        in 6..11 -> "Bom dia,"
-        in 12..17 -> "Boa tarde,"
-        else -> "Boa noite,"
+        in 6..11 -> "Bom dia"
+        in 12..17 -> "Boa tarde"
+        else -> "Boa noite"
     }
     
     Text(text = saudacao)

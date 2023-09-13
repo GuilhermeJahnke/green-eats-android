@@ -1,4 +1,4 @@
-package id.fiap.sample.ui.screen.register.section
+package id.fiap.sample.ui.screen.register
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

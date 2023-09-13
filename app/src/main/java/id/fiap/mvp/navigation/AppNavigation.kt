@@ -6,8 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import id.fiap.mvp.ui.MainScreen
-import id.fiap.sample.ui.screen.cart.CartScreen
-import id.fiap.sample.ui.screen.register.section.RegisterScreen
+import id.fiap.sample.ui.screen.register.RegisterScreen
 import id.fiap.sample.ui.screen.splashScreen.SplashScreen
 
 @Composable

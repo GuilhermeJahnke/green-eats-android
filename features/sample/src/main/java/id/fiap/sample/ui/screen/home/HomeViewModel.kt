@@ -10,6 +10,7 @@ import id.fiap.core.data.model.Product
 import id.fiap.core.data.model.ProductResponse
 import id.fiap.core.domain.usecase.product.GetProductsUseCase
 import id.fiap.core.domain.usecase.product.SearchProductUseCase
+import id.fiap.sample.ui.screen.cart.CartViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -27,8 +28,11 @@ class HomeViewModel @Inject constructor(
     private val _uiStateProduct: MutableStateFlow<UiState<ProductResponse>> = MutableStateFlow(UiState.Loading)
     val uiStateProduct: StateFlow<UiState<ProductResponse>> = _uiStateProduct
 
-    fun onProductClick(product: Product){
-        println("Voce acabou de clicar em ${product.title}")
+    fun onProductClick(
+        product: Product,
+        cartViewModel: CartViewModel
+    ){
+        cartViewModel.addProduct(product)
     }
 
     fun getProductsApiCall() { // this is sample not using `suspend`

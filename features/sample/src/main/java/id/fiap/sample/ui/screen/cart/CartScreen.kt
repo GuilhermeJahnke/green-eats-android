@@ -1,43 +1,48 @@
 package id.fiap.sample.ui.screen.cart
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import id.fiap.sample.ui.component.ProgressProduct
+import androidx.compose.ui.unit.sp
 import id.fiap.sample.ui.screen.cart.section.CartContent
-import id.fiap.core.R
-import id.fiap.core.data.UiState
 import id.fiap.core.ui.theme.Gray200
+import id.fiap.core.util.Dimens
+import id.fiap.sample.ui.component.EmptyProduct
 
 
 @Composable
 fun CartScreen(
-    viewModel: CartViewModel = hiltViewModel(),
+    viewModel: CartViewModel,
 ) {
     Scaffold(
+        backgroundColor = MaterialTheme.colors.primary,
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.cart))
-                },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = Color.White,
-                elevation = 0.dp
-            )
-        }, content = {
+            Column(
+                modifier =Modifier
+                    .padding(
+                        start = Dimens.dp16,
+                        end = Dimens.dp16,
+                        top = Dimens.dp16
+                    )
+            ) {
+                Text(
+                    text = "Carrinho",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Normal,
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+            }
+        },
+    ) {
+          Surface(
+              modifier = Modifier.fillMaxSize(),
+              color = MaterialTheme.colors.background
+          ) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
@@ -45,23 +50,35 @@ fun CartScreen(
                     .background(Gray200)
                     .padding(it)
             ) {
-                viewModel.uiStateDbProducts.collectAsState(initial = UiState.Loading).value.let { uiState ->
-                    when (uiState) {
-                        is UiState.Loading -> {
-                            viewModel.products
-                            ProgressProduct()
-                        }
 
-                        is UiState.Success -> {
-                            CartContent(products = uiState.data, viewModel = viewModel)
+                if (viewModel.isLoading.value) {
+                    CircularProgressIndicator()
+                } else {
+                    when {
+                        viewModel.products.isEmpty() -> {
+                            EmptyProduct()
                         }
-
-                        is UiState.Error -> {
-                            Text(text = stringResource(R.string.error_product), color = MaterialTheme.colors.onSurface)
+                        else -> {
+                            CartContent(
+                                products = viewModel.products,
+                                viewModel = viewModel
+                            )
+                            Button(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(85.dp)
+                                    .padding(16.dp)
+                                    .align(Alignment.BottomCenter),
+                                onClick = {
+                                    // Lógica para iniciar o processo de compra
+                                }
+                            ) {
+                                Text(text = "Comprar")
+                            }
                         }
                     }
                 }
             }
-        })
-
+        }
+    }
 }

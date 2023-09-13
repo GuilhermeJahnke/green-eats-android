@@ -27,7 +27,9 @@ class MainActivity : ComponentActivity() {
                 AppNavigation(navController = navController)
 
                 if (backgroundWorkFinished) {
-                    navController.navigate("Login")
+                    navController.navigate("Login"){
+                        popUpTo(navController.graph.id)
+                    }
                 } else {
                     navController.navigate("Splash")
                 }

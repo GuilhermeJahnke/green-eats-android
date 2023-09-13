@@ -5,13 +5,11 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
-import androidx.compose.runtime.R
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -21,42 +19,44 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import id.fiap.core.ui.theme.md_theme_light_background
 import id.fiap.core.ui.theme.md_theme_light_primary
 import id.fiap.core.ui.theme.md_theme_light_secondary
 import id.fiap.core.util.MaskVisualTransformation
+import id.fiap.sample.R
 import id.fiap.sample.ui.component.CustomButton
-import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun RegisterScreen(
-    navController: NavHostController = rememberNavController()
-){
-    var fullName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var document by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-
-
-    val viewModel: RegisterViewModel = viewModel()
-
-    val isButtonEnabled: Boolean =
-        viewModel.emailValid.value == true &&
-                viewModel.passwordValid.value == true &&
-                viewModel.phoneValid.value == true &&
-                viewModel.documentValid.value == true &&
-                viewModel.confirmPasswordValid.value == true &&
-                viewModel.fullNameValid.value == true
-
+fun RegisterContent(
+    navController: NavHostController = rememberNavController(),
+    onFullNameChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onDocumentChange: (String) -> Unit,
+    onPhoneChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onConfirmPasswordChange: (String) -> Unit,
+    onRegisterTap: () -> Unit,
+    fullName: String,
+    email: String,
+    document: String,
+    phone: String,
+    password: String,
+    confirmPassword: String,
+    isFullNameError: Boolean,
+    isEmailError: Boolean,
+    isDocumentError: Boolean,
+    isPhoneError: Boolean,
+    isPasswordError: Boolean,
+    isConfirmPasswordError: Boolean,
+    isButtonEnabled: Boolean,
+    isButtonLoading: Boolean,
+) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -116,7 +116,7 @@ fun RegisterScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
-                painter = painterResource(id.fiap.sample.R.drawable.icon),
+                painter = painterResource(R.drawable.icon),
                 contentDescription = "avatar",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -134,12 +134,9 @@ fun RegisterScreen(
 
             CustomTextField(
                 value = fullName,
-                onValueChange = {
-                   fullName = it
-                   viewModel.onFullNameChanged(it)
-                },
+                onValueChange = onFullNameChange,
                 label = "Nome completo",
-                isError = viewModel.fullNameValid.value == false,
+                isError = isFullNameError,
                 keyboardType = KeyboardType.Text,
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -149,11 +146,8 @@ fun RegisterScreen(
 
             CustomTextField(
                 value = email,
-                onValueChange = {
-                   email = it
-                   viewModel.onEmailChanged(it)
-                },
-                isError = viewModel.emailValid.value == false,
+                onValueChange = onEmailChange,
+                isError = isEmailError,
                 label = "E-mail",
                 keyboardType = KeyboardType.Password,
                 modifier = Modifier
@@ -164,14 +158,9 @@ fun RegisterScreen(
 
             CustomTextField(
                 value = document,
-                onValueChange = {
-                    if(it.length <= 11 ){
-                        document = it.filter { it.isDigit() }
-                        viewModel.onDocumentChanged(it)
-                    }
-                },
+                onValueChange = onDocumentChange,
                 label = "CPF",
-                isError = viewModel.documentValid.value == false,
+                isError = isDocumentError,
                 keyboardType = KeyboardType.Number,
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -182,13 +171,8 @@ fun RegisterScreen(
 
             CustomTextField(
                 value = phone,
-                onValueChange = {
-                    if(it.length <= 11) {
-                        phone = it
-                        viewModel.onPhoneChanged(it)
-                    }
-                },
-                isError = viewModel.phoneValid.value == false,
+                onValueChange = onPhoneChange,
+                isError = isPhoneError,
                 label = "Telefone",
                 keyboardType = KeyboardType.Phone,
                 modifier = Modifier
@@ -200,27 +184,21 @@ fun RegisterScreen(
 
             CustomTextField(
                 value = password,
-                onValueChange = {
-                   password = it
-                   viewModel.onPasswordChanged(it)
-                },
-                isError = viewModel.passwordValid.value == false,
+                onValueChange = onPasswordChange,
+                isError = isPasswordError,
                 visualTransformation =  PasswordVisualTransformation(),
                 label = "Senha",
                 keyboardType = KeyboardType.Password,
                 modifier = Modifier
-                 .fillMaxWidth()
+                    .fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(30.dp))
 
             CustomTextField(
                 value = confirmPassword,
-                onValueChange = {
-                   confirmPassword = it
-                   viewModel.onConfirmPasswordChanged(password, it)
-                },
-                isError = viewModel.confirmPasswordValid.value == false,
+                onValueChange = onConfirmPasswordChange,
+                isError = isConfirmPasswordError,
                 visualTransformation =  PasswordVisualTransformation(),
                 label = "Confirme sua senha",
                 keyboardType = KeyboardType.Password,
@@ -232,18 +210,9 @@ fun RegisterScreen(
 
             CustomButton(
                 text = "Cadastrar",
-                onClick = {
-                   viewModel.onRegisterTap(
-                       fullName,
-                       email,
-                       document,
-                       phone,
-                       password,
-                       navController,
-                   )
-                },
+                onClick = onRegisterTap,
                 isEnabled = isButtonEnabled,
-                isLoading = viewModel.isLoading.value,
+                isLoading = isButtonLoading,
                 colors = if (isButtonEnabled){
                     ButtonDefaults.textButtonColors(
                         backgroundColor = md_theme_light_primary,
@@ -261,4 +230,3 @@ fun RegisterScreen(
         }
     }
 }
-
