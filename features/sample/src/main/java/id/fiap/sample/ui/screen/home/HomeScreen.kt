@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -46,7 +47,14 @@ fun HomeScreen(
                         contentDescription = null,
                     )
                     Box(modifier = Modifier.width(10.dp))
-                    GreetingByTime()
+                    Column() {
+                        GreetingByTime()
+                        Text(
+                            text = "Seja muito bem vindo!",
+                            style = MaterialTheme.typography.body2
+                        )
+                    }
+
                 }
                 SearchBar(
                     query = "",
@@ -73,12 +81,12 @@ fun HomeScreen(
                         is UiState.Success -> {
                             HomeContent(
                                 modifier = modifier,
-                                listProduct = uiState.data.products,
+                                listProduct = uiState.data,
                                 onProductClick = {
                                     homeViewModel.onProductClick(
                                         it,
                                         cartViewModel
-                                        )
+                                    )
                                 }
                             )
                         }

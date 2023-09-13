@@ -1,5 +1,6 @@
 package id.fiap.core.util
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
@@ -7,7 +8,8 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import id.fiap.core.BuildConfig
 import java.text.NumberFormat
-import java.util.Locale
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.absoluteValue
 
 object UtilFunctions {
@@ -20,9 +22,8 @@ object UtilFunctions {
     fun Long?.fromDollarToReal(): String {
         val localeBR = Locale("pt", "BR")
         val formatter = NumberFormat.getCurrencyInstance(localeBR)
-        val currentDollarRate = 5.30
 
-        val realValue = (this ?: 0) * currentDollarRate
+        val realValue = this ?: 0
 
         return if (realValue > 0) {
             formatter.format(realValue)
@@ -62,6 +63,12 @@ object UtilFunctions {
         val remainder = total % 11
         val result = if (remainder < 2) 0 else 11 - remainder
         return result.toString()[0]
+    }
+
+    fun getCurrentTime(context: Context): Int {
+        val horaFormat = SimpleDateFormat("HH", Locale.getDefault())
+        val currentHour = horaFormat.format(Calendar.getInstance().time)
+        return currentHour.toIntOrNull() ?: 0
     }
 
 }

@@ -64,41 +64,41 @@ fun RegisterContent(
 
     Scaffold(
 
-        topBar = {
-
-            TopAppBar(
-                backgroundColor = md_theme_light_background,
-                elevation = 0.dp,
-                title = {},
-                navigationIcon = {
-                    Card(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .padding(8.dp),
-                        shape = CircleShape,
-                        elevation = 8.dp
-                    ) {
-                        IconButton(
-                            onClick = {
-                                navController.popBackStack()
-                            },
-                            modifier = Modifier
-                                .size(48.dp)
-                                .background(
-                                    shape = CircleShape,
-                                    color = MaterialTheme.colors.primary // Cor de fundo do botão
-                                )
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "Voltar",
-                                tint = Color.White // Cor do ícone
-                            )
-                        }
-                    }
-                }
-            )
-        },
+//        topBar = {
+//
+//            TopAppBar(
+//                backgroundColor = md_theme_light_background,
+//                elevation = 0.dp,
+//                title = {},
+//                navigationIcon = {
+//                    Card(
+//                        modifier = Modifier
+//                            .size(48.dp)
+//                            .padding(8.dp),
+//                        shape = CircleShape,
+//                        elevation = 8.dp
+//                    ) {
+//                        IconButton(
+//                            onClick = {
+//                                navController.popBackStack()
+//                            },
+//                            modifier = Modifier
+//                                .size(48.dp)
+//                                .background(
+//                                    shape = CircleShape,
+//                                    color = MaterialTheme.colors.primary // Cor de fundo do botão
+//                                )
+//                        ) {
+//                            Icon(
+//                                imageVector = Icons.Default.ArrowBack,
+//                                contentDescription = "Voltar",
+//                                tint = Color.White // Cor do ícone
+//                            )
+//                        }
+//                    }
+//                }
+//            )
+//        },
     ) {
         Column(
             modifier = Modifier
@@ -115,6 +115,38 @@ fun RegisterContent(
 
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Card(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .padding(8.dp)
+                        .fillMaxWidth(),
+                    shape = CircleShape,
+                    elevation = 8.dp
+                ) {
+                    IconButton(
+                        onClick = {
+                            navController.popBackStack()
+                        },
+                        modifier = Modifier
+                            .size(48.dp)
+                            .background(
+                                shape = CircleShape,
+                                color = MaterialTheme.colors.primary // Cor de fundo do botão
+                            )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Voltar",
+                            tint = Color.White // Cor do ícone
+                        )
+                    }
+                }
+            }
+
             Image(
                 painter = painterResource(R.drawable.icon),
                 contentDescription = "avatar",

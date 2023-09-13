@@ -33,7 +33,7 @@ class CartViewModel : ViewModel() {
         _isLoading.value = true
 
         viewModelScope.launch {
-            delay(2000)
+            delay(500)
 
             _products.remove(product)
 

@@ -107,6 +107,7 @@ fun RegisterScreen(
         isConfirmPasswordError = viewModel.confirmPasswordValid.value == false,
         isButtonEnabled = isButtonEnabled,
         isButtonLoading = viewModel.isLoading.value,
+        navController = navController
     )
 }
 
