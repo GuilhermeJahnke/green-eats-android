@@ -86,7 +86,7 @@ fun ProductItem(
                                 color = MaterialTheme.colors.secondary
                             )
                             Text(
-                                text = "1kg",
+                                text = "${product.size}g",
                                 style = MaterialTheme.typography.subtitle2,
                                 color = MaterialTheme.colors.secondary
                             )

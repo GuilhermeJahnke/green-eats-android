@@ -62,44 +62,7 @@ fun RegisterContent(
     val focusManager = LocalFocusManager.current
     val interactionSource = remember { MutableInteractionSource() }
 
-    Scaffold(
-
-//        topBar = {
-//
-//            TopAppBar(
-//                backgroundColor = md_theme_light_background,
-//                elevation = 0.dp,
-//                title = {},
-//                navigationIcon = {
-//                    Card(
-//                        modifier = Modifier
-//                            .size(48.dp)
-//                            .padding(8.dp),
-//                        shape = CircleShape,
-//                        elevation = 8.dp
-//                    ) {
-//                        IconButton(
-//                            onClick = {
-//                                navController.popBackStack()
-//                            },
-//                            modifier = Modifier
-//                                .size(48.dp)
-//                                .background(
-//                                    shape = CircleShape,
-//                                    color = MaterialTheme.colors.primary // Cor de fundo do botão
-//                                )
-//                        ) {
-//                            Icon(
-//                                imageVector = Icons.Default.ArrowBack,
-//                                contentDescription = "Voltar",
-//                                tint = Color.White // Cor do ícone
-//                            )
-//                        }
-//                    }
-//                }
-//            )
-//        },
-    ) {
+    Scaffold() {
         Column(
             modifier = Modifier
                 .fillMaxSize()

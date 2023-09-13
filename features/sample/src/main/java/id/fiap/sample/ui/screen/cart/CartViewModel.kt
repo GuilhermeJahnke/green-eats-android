@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import id.fiap.core.data.model.Product
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -40,4 +41,17 @@ class CartViewModel : ViewModel() {
             _isLoading.value = false
         }
     }
+
+    fun onConfirmTap(navController: NavController){
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            delay(500)
+
+            _products.clear()
+
+            _isLoading.value = false
+        }
+    }
+
 }

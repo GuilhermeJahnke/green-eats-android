@@ -90,7 +90,7 @@ fun ProductCartItem(
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 Text(
-                    text = "1kg",
+                    text = "${product.size}g",
                     style = MaterialTheme.typography.subtitle2,
                     color = MaterialTheme.colors.secondary
                 )

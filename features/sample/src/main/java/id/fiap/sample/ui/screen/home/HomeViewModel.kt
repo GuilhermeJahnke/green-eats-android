@@ -34,7 +34,7 @@ class HomeViewModel @Inject constructor(
         val productsList: MutableList<Product> = getProductsUseCase.execute(Unit)
 
         viewModelScope.launch {
-            delay(3000)
+            delay(1000)
 
             _uiStateProduct.value = UiState.Success(productsList)
         }
