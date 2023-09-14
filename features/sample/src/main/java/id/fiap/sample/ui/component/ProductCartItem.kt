@@ -1,19 +1,10 @@
 package id.fiap.sample.ui.component
 
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.Composable
@@ -33,16 +24,17 @@ import coil.request.ImageRequest
 import id.fiap.core.R
 import id.fiap.core.data.model.Product
 import id.fiap.core.ui.theme.Shapes
-import id.fiap.core.util.UtilFunctions.fromDollarToRupiah
+import id.fiap.core.ui.theme.md_theme_light_primary
+import id.fiap.core.util.UtilFunctions.fromDollarToReal
 
 @Composable
 fun ProductCartItem(
     modifier: Modifier = Modifier,
     product: Product = Product(),
-    onRemoveClicked: () -> Unit
+    onRemoveClicked: () -> Unit,
 ) {
     Card(
-        shape = RoundedCornerShape(3.dp),
+        shape = RoundedCornerShape(15.dp),
         backgroundColor = Color.White,
         modifier = modifier
             .padding(8.dp)
@@ -60,13 +52,15 @@ fun ProductCartItem(
                         modifier = Modifier.padding(16.dp)
                     )
                 },
-                contentDescription = stringResource(R.string.product_thumbnail),
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(90.dp)
                     .padding(8.dp)
                     .clip(Shapes.medium)
+                    .clip(shape = RoundedCornerShape(15.dp))
             )
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -84,19 +78,38 @@ fun ProductCartItem(
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 Text(
-                    text = product.price.fromDollarToRupiah(),
+                    text = product.price.fromDollarToReal(),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.subtitle2,
                     color = MaterialTheme.colors.secondary
                 )
+                Spacer(modifier = Modifier.size(3.dp))
+                Text(
+                    text = "${product.size}g",
+                    style = MaterialTheme.typography.subtitle2,
+                    color = MaterialTheme.colors.secondary
+                )
             }
-            IconButton(
-                modifier = Modifier.align(Alignment.CenterVertically),
-                onClick = { onRemoveClicked() }
+            Box(
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(md_theme_light_primary)
+                    .align(Alignment.CenterVertically)
+                    .size(50.dp)
             ) {
-                Icon(Icons.Outlined.Delete, "Delete Icon")
+                IconButton(
+                    onClick = { onRemoveClicked() }
+                ) {
+                    Icon(
+                        Icons.Outlined.Delete,
+                        null,
+                        tint= Color.White
+                    )
+                }
             }
+
         }
     }
 }
@@ -112,6 +125,6 @@ fun ProductCartItemPreview() {
             price = 100000,
             thumbnail = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
         ),
-        onRemoveClicked = {}
+        onRemoveClicked = {},
     )
 }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import id.fiap.core.ui.theme.md_theme_light_background
 import id.fiap.sample.ui.navigation.model.BottomBarScreen
 
 @Composable
@@ -28,9 +28,8 @@ fun BottomNav(
 
     Scaffold(
         modifier = modifier,
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = md_theme_light_background,
         bottomBar = {
-            // show and hide bottom navigation
             if (currentRoute == BottomBarScreen.Home.route ||
                 currentRoute == BottomBarScreen.Cart.route
             ) {

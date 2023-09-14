@@ -51,6 +51,7 @@ android {
     }
     tasks.withType().configureEach {
         kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        kotlinOptions.freeCompilerArgs += "-Xjvm-default=enable"
     }
 }
 

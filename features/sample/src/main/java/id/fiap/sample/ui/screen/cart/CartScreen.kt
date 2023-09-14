@@ -1,43 +1,112 @@
 package id.fiap.sample.ui.screen.cart
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import id.fiap.sample.ui.component.ProgressProduct
-import id.fiap.sample.ui.screen.cart.section.CartContent
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import id.fiap.core.R
-import id.fiap.core.data.UiState
+import id.fiap.sample.ui.screen.cart.section.CartContent
 import id.fiap.core.ui.theme.Gray200
+import id.fiap.core.util.Dimens
+import id.fiap.core.util.Extensions.myToast
+import id.fiap.sample.ui.component.EmptyProduct
 
 
 @Composable
 fun CartScreen(
-    viewModel: CartViewModel = hiltViewModel(),
+    viewModel: CartViewModel,
+    navController: NavController = rememberNavController()
 ) {
+    var showDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val thankYouBuy = stringResource(id = R.string.thank_you_buy)
+
+    if (showDialog) {
+        AlertDialog(
+            modifier = Modifier.padding(0.dp),
+            onDismissRequest = { showDialog = false },
+            shape= RoundedCornerShape(20.dp),
+            title = {
+                Text(
+                    "Confirmar pedido",
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(
+                    "Tem certeza de que deseja confirmar a compra? Após a aprovação de pagamento, iremos começar os preparativos para o seu pedido!",
+
+                )
+            },
+            confirmButton = {
+                Box(
+                    modifier = Modifier.padding(bottom = 30.dp, end=30.dp)
+                ) {
+                    Button(
+                        modifier=Modifier.height(50.dp),
+                        shape = RoundedCornerShape(10.dp),
+                        onClick = {
+                            showDialog = false
+                            viewModel.onConfirmTap(navController)
+                            context.myToast(thankYouBuy)
+                        }
+                    ) {
+                        Text("Confirmar")
+                    }
+                }
+            },
+            dismissButton = {
+                Box(
+                    modifier = Modifier.padding(bottom = 30.dp, end=10.dp)
+                ) {
+                    Button(
+                        modifier=Modifier.height(50.dp),
+                        shape = RoundedCornerShape(10.dp),
+                        onClick = {
+                            showDialog = false
+                        }
+                    ) {
+                        Text("Cancelar")
+                    }
+                }
+            }
+        )
+    }
+
     Scaffold(
+        backgroundColor = MaterialTheme.colors.primary,
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.cart))
-                },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = Color.White,
-                elevation = 0.dp
-            )
-        }, content = {
+            Column(
+                modifier =Modifier
+                    .padding(
+                        start = Dimens.dp16,
+                        end = Dimens.dp16,
+                        top = Dimens.dp16
+                    )
+            ) {
+                Text(
+                    text = "Carrinho",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Normal,
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+            }
+        },
+    ) {
+          Surface(
+              modifier = Modifier.fillMaxSize(),
+              color = MaterialTheme.colors.background
+          ) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
@@ -45,23 +114,35 @@ fun CartScreen(
                     .background(Gray200)
                     .padding(it)
             ) {
-                viewModel.uiStateDbProducts.collectAsState(initial = UiState.Loading).value.let { uiState ->
-                    when (uiState) {
-                        is UiState.Loading -> {
-                            viewModel.products
-                            ProgressProduct()
-                        }
 
-                        is UiState.Success -> {
-                            CartContent(products = uiState.data, viewModel = viewModel)
+                if (viewModel.isLoading.value) {
+                    CircularProgressIndicator()
+                } else {
+                    when {
+                        viewModel.products.isEmpty() -> {
+                            EmptyProduct()
                         }
-
-                        is UiState.Error -> {
-                            Text(text = stringResource(R.string.error_product), color = MaterialTheme.colors.onSurface)
+                        else -> {
+                            CartContent(
+                                products = viewModel.products,
+                                viewModel = viewModel
+                            )
+                            Button(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(85.dp)
+                                    .padding(16.dp)
+                                    .align(Alignment.BottomCenter),
+                                onClick = {
+                                    showDialog = true
+                                }
+                            ) {
+                                Text(text = "Comprar")
+                            }
                         }
                     }
                 }
             }
-        })
-
+        }
+    }
 }

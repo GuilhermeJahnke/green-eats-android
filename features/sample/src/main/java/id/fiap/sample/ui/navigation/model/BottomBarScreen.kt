@@ -3,7 +3,7 @@ package id.fiap.sample.ui.navigation.model
 import id.fiap.core.R
 
 
-sealed class BottomBarScreen(val route: String) {
+sealed class BottomBarScreen {
     object Home : BottomBar(
         route = "home",
         titleResId = R.string.home,

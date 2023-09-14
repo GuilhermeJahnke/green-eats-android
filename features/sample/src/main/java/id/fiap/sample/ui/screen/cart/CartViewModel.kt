@@ -1,29 +1,57 @@
 package id.fiap.sample.ui.screen.cart
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import id.fiap.core.data.UiState
+import androidx.navigation.NavController
 import id.fiap.core.data.model.Product
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
-@HiltViewModel
-class CartViewModel @Inject constructor(
 
-) : ViewModel() {
+class CartViewModel : ViewModel() {
 
-    private val _uiStateDbProducts: MutableStateFlow<UiState<MutableList<Product>>> = MutableStateFlow(UiState.Loading)
-    val uiStateDbProducts: StateFlow<UiState<MutableList<Product>>> = _uiStateDbProducts
+    private val _products = mutableListOf<Product>()
+    val products: MutableList<Product> = _products;
 
-    val products: MutableList<Product> = mutableListOf()
+    private val _isLoading = mutableStateOf(false)
+    val isLoading: State<Boolean> = _isLoading
 
-    fun deleteProductDb(product: Product) {
-        viewModelScope.launch {
-            products.remove(product)
+
+    fun addProduct(product: Product) {
+        if(
+            _products.none {
+                it.id == product.id
+            }
+        ){
+            _products.add(product)
         }
     }
+
+    fun deleteProduct(product: Product) {
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            delay(500)
+
+            _products.remove(product)
+
+            _isLoading.value = false
+        }
+    }
+
+    fun onConfirmTap(navController: NavController){
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            delay(500)
+
+            _products.clear()
+
+            _isLoading.value = false
+        }
+    }
+
 }
