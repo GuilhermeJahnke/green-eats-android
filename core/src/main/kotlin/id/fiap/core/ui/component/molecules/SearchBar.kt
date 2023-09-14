@@ -80,7 +80,7 @@ fun SearchBar(
                     IconButton(onClick = { onQueryChange("") }) {
                         Icon(
                             imageVector = Icons.Filled.Clear,
-                            contentDescription = stringResource(R.string.clear),
+                            contentDescription = null,
                             modifier = Modifier.size(Dimens.dp20),
                         )
                     }

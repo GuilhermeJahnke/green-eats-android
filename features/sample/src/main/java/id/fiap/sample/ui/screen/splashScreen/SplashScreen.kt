@@ -15,7 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import id.fiap.core.ui.theme.GreenEatsTheme
 import id.fiap.core.ui.theme.StatusBarColor
 import id.fiap.core.ui.theme.md_theme_light_primary
-import id.fiap.mvp.ui.MainScreen
+import id.fiap.sample.ui.screen.mainScreen.MainScreen
 import id.fiap.sample.R
 
 @Composable

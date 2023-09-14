@@ -24,7 +24,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import id.fiap.core.ui.theme.md_theme_light_background
 import id.fiap.core.ui.theme.md_theme_light_primary
 import id.fiap.core.ui.theme.md_theme_light_secondary
 import id.fiap.core.util.MaskVisualTransformation

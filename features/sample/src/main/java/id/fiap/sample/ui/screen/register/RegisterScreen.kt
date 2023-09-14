@@ -1,37 +1,13 @@
 package id.fiap.sample.ui.screen.register
 
-import CustomTextField
-import androidx.compose.foundation.*
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.*
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import id.fiap.core.ui.theme.md_theme_light_background
-import id.fiap.core.ui.theme.md_theme_light_primary
-import id.fiap.core.ui.theme.md_theme_light_secondary
-import id.fiap.core.util.MaskVisualTransformation
-import id.fiap.sample.ui.component.CustomButton
 import id.fiap.sample.ui.screen.register.section.RegisterContent
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun RegisterScreen(
     navController: NavHostController = rememberNavController()

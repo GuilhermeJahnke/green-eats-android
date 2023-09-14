@@ -11,14 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
-import id.fiap.core.R
 import id.fiap.core.data.model.Product
 import id.fiap.core.ui.theme.Gray200
 import id.fiap.core.util.UtilFunctions.fromDollarToReal
@@ -50,7 +48,7 @@ fun ProductItem(
                         modifier = Modifier.padding(48.dp)
                     )
                 },
-                contentDescription = stringResource(R.string.product_thumbnail),
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = modifier.height(180.dp)
             )

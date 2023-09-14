@@ -25,7 +25,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import id.fiap.sample.ui.navigation.model.BottomBar
-import id.fiap.sample.ui.navigation.model.BottomBarScreen
 
 @Composable
 fun BottomNavItem(

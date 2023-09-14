@@ -7,16 +7,18 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import id.fiap.core.R
 import id.fiap.sample.ui.screen.cart.section.CartContent
 import id.fiap.core.ui.theme.Gray200
-import id.fiap.core.ui.theme.md_theme_light_error
 import id.fiap.core.util.Dimens
+import id.fiap.core.util.Extensions.myToast
 import id.fiap.sample.ui.component.EmptyProduct
 
 
@@ -26,6 +28,8 @@ fun CartScreen(
     navController: NavController = rememberNavController()
 ) {
     var showDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val thankYouBuy = stringResource(id = R.string.thank_you_buy)
 
     if (showDialog) {
         AlertDialog(
@@ -54,6 +58,7 @@ fun CartScreen(
                         onClick = {
                             showDialog = false
                             viewModel.onConfirmTap(navController)
+                            context.myToast(thankYouBuy)
                         }
                     ) {
                         Text("Confirmar")

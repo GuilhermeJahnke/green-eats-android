@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import id.fiap.core.util.UtilFunctions.isValidEmail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,9 +24,7 @@ class LoginViewModel() : ViewModel(){
 
         viewModelScope.launch {
             delay(2000)
-
-            // Remove this mock when Integration is finished
-            navController.navigate("Home"){
+                navController.navigate("Home"){
                 popUpTo(navController.graph.id)
             }
 

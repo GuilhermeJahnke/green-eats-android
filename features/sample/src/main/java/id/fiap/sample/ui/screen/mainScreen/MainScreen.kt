@@ -1,4 +1,4 @@
-package id.fiap.mvp.ui
+package id.fiap.sample.ui.screen.mainScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

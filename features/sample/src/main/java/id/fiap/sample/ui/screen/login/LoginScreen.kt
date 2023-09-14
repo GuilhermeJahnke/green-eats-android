@@ -2,7 +2,6 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import id.fiap.mvp.ui.MainScreen
 import id.fiap.sample.ui.screen.login.LoginViewModel
 import id.fiap.sample.ui.screen.login.section.LoginContent
 

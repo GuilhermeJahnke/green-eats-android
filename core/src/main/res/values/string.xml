@@ -2,24 +2,11 @@
     <string name="app_name">GreenEats</string>
     <string name="home">Início</string>
     <string name="cart">Carrinho</string>
-    <string name="profile">Profile</string>
-    <string name="product_thumbnail">Product Thumbnail</string>
     <string name="no_product">Nenhum produto no carrinho</string>
     <string name="load_product">Carregando Produtos…</string>
     <string name="error_product">Não foi possível carregar os produtos, tente novamente mais tarde</string>
-    <string name="detail_product">Detail Product</string>
-    <string name="description">Description</string>
-    <string name="clear">Clear</string>
-    <string name="dash">-</string>
     <string name="search_product">Buscar produto…</string>
-    <string name="buy">BUY</string>
-    <string name="add_to_cart">Add to Cart</string>
     <string name="added_to_cart">%s foi adicionado ao carrinho com sucesso!</string>
-    <string name="thank_you_buy">Thanks for buying 🎉</string>
+    <string name="thank_you_buy">Obrigado por comprar! 🎉</string>
     <string name="remove_from_cart_">%s foi removido do carrinho com sucesso.</string>
-    <string name="about_page">about_page</string>
-    <string name="fiap">fiap</string>
-    <string name="profile_description">Exploring the limitless possibilities of mobile development through the power of Jetpack Compose and the Flutter Framework 🚀</string>
-    <string name="profile_web">https://github.com/im-o</string>
-    <string name="back">Back</string>
 </resources>

@@ -1,23 +1,11 @@
 package id.fiap.core.util
 
 import android.content.Context
-import android.util.Log
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
-import id.fiap.core.BuildConfig
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.absoluteValue
 
 object UtilFunctions {
-    private val localeID = Locale("in", "ID")
-
-    fun logE(message: String) {
-        if (BuildConfig.DEBUG) Log.e("ERROR_IMO", message)
-    }
 
     fun Long?.fromDollarToReal(): String {
         val localeBR = Locale("pt", "BR")
